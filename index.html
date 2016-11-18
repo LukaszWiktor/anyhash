@@ -11,6 +11,16 @@
             input[readonly] {
                 cursor: text
             }
+            body {
+                background: #f2f2f2;
+            }
+            .top-bar {
+                color: #f2f2f2;
+                background: #c0392b;
+            }
+            form {
+                margin-top: 1rem;
+            }
         </style>
     </head>
     <body>
@@ -23,6 +33,7 @@
             <div class="row">
                 <div class="medium-1 columns">&nbsp;</div>
                 <div class="small-12 medium-10 columns">
+                    <form>
                     <label>
                         Algorithm
                         <select v-model="algorithm" v-on:change="algorithmSelected">
@@ -37,6 +48,7 @@
                         Output
                         <input type="text" v-model="output" readonly></input>
                     </label>
+                    </form>
                 </div>
                 <div class="medium-1 columns">&nbsp;</div>
             </div>
