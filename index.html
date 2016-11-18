@@ -25,7 +25,7 @@
                 <div class="small-12 medium-10 columns">
                     <label>
                         Algorithm
-                        <select v-model="algorithm">
+                        <select v-model="algorithm" v-on:change="algorithmSelected">
                             <option v-for="algo in algorithms" v-bind:value="algo">{{algo.name}}</option>
                         </select>
                     </label>
@@ -59,16 +59,32 @@
             {name: "SHA3-512", calc: sha3_512},
             {name: "SHA512", calc: sha512}
         ];
+        var algorithm = algorithms[0];
+        var locationHash = (window.location.hash || "").replace("#","")
+        if (locationHash) {
+            algorithms.forEach(function(algo) {
+                if (algo.name == locationHash) {
+                    algorithm = algo;
+                }
+            })
+        }
+        window.location.hash = algorithm.name;
+
         new Vue({
             el: "#app",
             data: {
                algorithms: algorithms,
-               algorithm: algorithms[0],
+               algorithm: algorithm,
                input: "Test"
             },
             computed: {
                 output: function() {
                     return this.algorithm.calc(this.input);
+                }
+            },
+            methods: {                
+                algorithmSelected: function() {
+                    window.location.hash=this.algorithm.name;
                 }
             }
         })
